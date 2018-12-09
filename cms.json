@@ -1,0 +1,304 @@
+{
+	"info": {
+		"_postman_id": "e90bb32c-2158-4044-88f0-35e3ba2fc363",
+		"name": "cms",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "healthcheck",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1ead2de4-10bf-43f9-bdf2-1981f49cbb03",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"status should be ok\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.message).to.eql(\"GET request successful!!!!\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:3000/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create new contact",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "905205cf-f071-4d6b-a6ff-4f19c07e3c4a",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"contact should be created\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData._id).to.not.eql(null);",
+							"    pm.expect(jsonData.firstName).to.eql(\"Apipol\");",
+							"    ",
+							"    pm.environment.set(\"contact_id\", jsonData._id);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"firstName\": \"Apipol\",\n\t\"lastName\": \"Sukgler\",\n\t\"email\": \"golf.apipol@gmail.com\",\n\t\"phone\": 853872788,\n\t\"company\": \"SCK\",\n\t\"created_date\": \"2018-12-09T22:37:00.000Z\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/contact",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"contact"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get contact",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d2ef328c-a5f0-4b32-bf98-ebb97f69a768",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"contact should have apipol\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData[0].firstName).to.eql(\"Apipol\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"firstName\": \"Apipol\",\n\t\"lastName\": \"Sukgler\",\n\t\"email\": \"golf.apipol@gmail.com\",\n\t\"phone\": 853872788,\n\t\"company\": \"SCK\",\n\t\"created_date\": \"2018-12-09T22:37:00.000Z\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/contact",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"contact"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "edit contact",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d2ef328c-a5f0-4b32-bf98-ebb97f69a768",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"contact should have apipol\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.firstName).to.eql(\"Apipol\");",
+							"    pm.expect(jsonData.company).to.eql(\"Shuhari\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"firstName\": \"Apipol\",\n\t\"lastName\": \"Sukgler\",\n\t\"email\": \"golf.apipol@gmail.com\",\n\t\"phone\": 853872788,\n\t\"company\": \"Shuhari\",\n\t\"created_date\": \"2018-12-09T22:37:00.000Z\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/contact/{{contact_id}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"contact",
+						"{{contact_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get contact by id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d2ef328c-a5f0-4b32-bf98-ebb97f69a768",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"contact should have apipol\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.firstName).to.eql(\"Apipol\");",
+							"    pm.expect(jsonData.company).to.eql(\"Shuhari\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"firstName\": \"Apipol\",\n\t\"lastName\": \"Sukgler\",\n\t\"email\": \"golf.apipol@gmail.com\",\n\t\"phone\": 853872788,\n\t\"company\": \"Shuhari\",\n\t\"created_date\": \"2018-12-09T22:37:00.000Z\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/contact/{{contact_id}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"contact",
+						"{{contact_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d2ef328c-a5f0-4b32-bf98-ebb97f69a768",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"contact should have apipol\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.message).to.eql(\"Successful deleted contact\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/contact/{{contact_id}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"contact",
+						"{{contact_id}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

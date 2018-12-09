@@ -11,6 +11,7 @@ export class ContactController {
         newContact.save((err, contact) => {
             if (err) {
                 res.send(err);
+                return
             }
             res.json(contact);
         })
@@ -20,6 +21,7 @@ export class ContactController {
         Contact.find({}, (err, contact) => {
             if (err) {
                 res.send(err);
+                return
             }
             res.json(contact);
         })
@@ -29,6 +31,7 @@ export class ContactController {
         Contact.findById(req.params.contactId, (err, contact) => {
             if (err) {
                 res.send(err);
+                return
             }
             res.json(contact);
         })
@@ -38,6 +41,7 @@ export class ContactController {
         Contact.findOneAndUpdate({ _id: req.params.contactId }, req.body, {new: true}, (err, contact) => {
             if (err) {
                 res.send(err);
+                return
             }
             res.json(contact);
         }) 
@@ -47,6 +51,7 @@ export class ContactController {
         Contact.remove({_id: req.params.contactId }, (err) => {
             if (err) {
                 res.send(err);
+                return
             }
             res.json({ message: 'Successful deleted contact' })
         })
